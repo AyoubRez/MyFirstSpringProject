@@ -9,6 +9,8 @@ import com.myfirstspringproject.spring5webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 public class BootStrapData implements CommandLineRunner {
     private final AuthorRepository authorRepository;
@@ -29,41 +31,36 @@ public class BootStrapData implements CommandLineRunner {
         Book ddd= new Book("Domain Driven Design","12334343");
         Publisher ppp = new Publisher("itit","38 element route");
 
+        publisherRepository.save(ppp);
+
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
-        ddd.getPublishers().add(ppp);
+
+        ddd.setPublishers(ppp);
         ppp.getBooks().add(ddd);
 
 
         authorRepository.save(eric);
-        publisherRepository.save(ppp);
         bookRepository.save(ddd);
+        publisherRepository.save(ppp);
 
 
 
 
-        /*Author rod = new Author("Rod","Jhonson");
+        Author rod = new Author("Rod","Jhonson");
         Book noEJB= new Book("J2EE Development without EJB","18657656");
 
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
+        ppp.getBooks().add(noEJB);
+        noEJB.setPublishers(ppp);
 
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-
-        Publisher nintendo = new Publisher("Nintendo","Silicon Valey");
-        Book mmm = new Book("this is sparta","34567888");
-
-        nintendo.getBooks().add(mmm);
-        mmm.getPublishers().add(nintendo);
-
-        bookRepository.save(mmm);
-        publisherRepository.save(nintendo);
-*/
-
+        publisherRepository.save(ppp);
 
         System.out.println("Started in Bootsrap");
-        System.out.println("Number of Books  "+ bookRepository.count() + "Number of Publishers "+ publisherRepository.count());
+        System.out.println("Number of Books  "+ bookRepository.count() + "Number of Publishers "+ publisherRepository.count() + " number of books in this publisher "+ppp.getBooks().size());
 
     }
 }

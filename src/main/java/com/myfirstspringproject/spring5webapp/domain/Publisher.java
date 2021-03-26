@@ -13,7 +13,8 @@ public class Publisher {
     private String name;
     private String address ;
 
-    @ManyToMany(mappedBy = "publishers")
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
     private Set<Book> books = new HashSet<>();
 
 
@@ -63,7 +64,6 @@ public class Publisher {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", books=" + books +
                 '}';
     }
 

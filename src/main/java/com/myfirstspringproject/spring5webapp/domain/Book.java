@@ -17,9 +17,8 @@ public class Book {
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),inverseJoinColumns =@JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "book_id"),inverseJoinColumns = @JoinColumn(name = "publisher_id"))
-    private Set<Publisher> publishers = new HashSet<>();
+    @ManyToOne
+    private Publisher publishers;
 
     public Book() {
     }
@@ -68,12 +67,12 @@ public class Book {
         this.authors = authors;
     }
 
-    public Set<Publisher> getPublishers() {
-        return publishers;
+    public void setPublishers(Publisher publishers) {
+        this.publishers = publishers;
     }
 
-    public void setPublishers(Set<Publisher> publishers) {
-        this.publishers = publishers;
+    public Publisher getPublishers() {
+        return publishers;
     }
 
     @Override
@@ -82,8 +81,6 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                ", publishers=" + publishers +
                 '}';
     }
 
